@@ -10,16 +10,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class StudentController {
     Student student;
 
+    @RequestMapping("/")
+    public String home() {
+        return "index";
+    }
 
     @RequestMapping("view_student")
     public String viewStudent(Model model) {
+        System.out.println("GOT HERE IN: viewStudent().....");
         model.addAttribute("student", student);
         return "view_student";
     }
 
     @RequestMapping("/new_student")
     public String newStudent(Model model) {
-        System.out.println(Grade.values());
+        Grade.printAll();
         model.addAttribute("grades", Grade.values());
 
         return "new_student";
@@ -29,6 +34,7 @@ public class StudentController {
     public String createStudent(@RequestParam(value="first_name") String firstName,
                                 @RequestParam(value="last_name") String lastName,
                                 @RequestParam(value="grade") Grade grade) {
+        System.out.println("We;re in createStudent()");
 
         Student student = new Student();
 
